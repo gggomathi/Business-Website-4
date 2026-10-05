@@ -88,8 +88,8 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
                     <p className="text-[11px] text-[#8C7A6B] truncate">
                       {saree.categoryLabel} · {saree.color}
                     </p>
-                    <div className="mt-1 text-xs font-semibold text-[#242120] tabular-nums">
-                      ₹{saree.price.toLocaleString('en-IN')}
+                    <div className="mt-1 text-xs font-semibold text-[#8B2635]">
+                      Price on Request
                     </div>
 
                     <div className="mt-3 flex items-center gap-2">
@@ -101,7 +101,7 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
                         className="py-1.5 px-3 bg-[#8B2635] text-white text-[11px] font-semibold uppercase tracking-wider flex items-center gap-1 hover:bg-[#721F2B] transition-colors"
                       >
                         <ShoppingBag className="w-3 h-3" />
-                        <span>Move to Bag</span>
+                        <span>Add to Inquiry</span>
                       </button>
 
                       <button
@@ -129,7 +129,7 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
               }}
               className="w-full py-3 bg-[#8B2635] hover:bg-[#721F2B] text-white text-xs font-semibold uppercase tracking-wider transition-colors"
             >
-              Move All to Shopping Bag
+              Move All to Inquiry Bag
             </button>
           </div>
         )}

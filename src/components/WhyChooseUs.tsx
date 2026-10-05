@@ -40,10 +40,10 @@ export const WhyChooseUs: React.FC = () => {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#A26D38] mb-2">
-            The ABC Distinction
+            The RJ Fabrics Distinction
           </p>
           <h2 className="font-display text-3xl sm:text-4xl font-semibold text-[#242120] tracking-tight">
-            Why Choose ABC
+            Why Choose RJ Fabrics
           </h2>
           <div className="w-16 h-[2px] bg-[#C5A059] mx-auto mt-4 mb-4" />
           <p className="text-sm sm:text-base text-[#6B5E55] font-light">
@@ -86,7 +86,7 @@ export const WhyChooseUs: React.FC = () => {
 
                 <div className="mt-6 pt-4 border-t border-[#F0E8DC] text-[11px] text-[#8C7A6B] flex items-center gap-1.5 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" />
-                  <span>ABC Lifetime Authenticity Guarantee</span>
+                  <span>RJ Fabrics Lifetime Authenticity Guarantee</span>
                 </div>
               </div>
             );

@@ -33,20 +33,25 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-[#36272A]">
           
-          {/* Col 1: ABC Brand & Description (4 cols) */}
+          {/* Col 1: RJ Fabrics Brand & Description (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
             <div>
               <span className="font-display text-3xl sm:text-4xl font-semibold tracking-[0.2em] text-[#FAF8F5]">
                 {BUSINESS_INFO.name}
               </span>
               <p className="text-[11px] uppercase tracking-[0.3em] text-[#C5A059] font-medium mt-1">
-                Silk Sarees · Since Inception
+                Pure Silk Sarees · Tiruppur
               </p>
             </div>
 
             <p className="text-xs sm:text-sm text-[#A89C91] font-light leading-relaxed max-w-sm">
-              ABC is dedicated to bringing authentic, elegant, and high-quality silk sarees to customers worldwide while preserving traditional handloom craftsmanship and Indian heritage.
+              RJ Fabrics is dedicated to bringing authentic, elegant, and high-quality silk sarees to customers and boutiques worldwide while preserving traditional handloom craftsmanship.
             </p>
+
+            <div className="pt-1">
+              <span className="text-[11px] text-[#A89C91] block">GSTIN Registration:</span>
+              <span className="text-xs font-mono font-bold text-[#E8DFD3] tracking-wide">{BUSINESS_INFO.gstin}</span>
+            </div>
 
             <div className="pt-2 flex items-center gap-3">
               <a
@@ -121,12 +126,20 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
 
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#C5A059] shrink-0" />
-                <a
-                  href={`tel:${BUSINESS_INFO.phone}`}
-                  className="hover:text-[#FAF8F5] transition-colors"
-                >
-                  {BUSINESS_INFO.phoneDisplay}
-                </a>
+                <div className="flex flex-col">
+                  <a
+                    href="tel:+917904396868"
+                    className="hover:text-[#FAF8F5] transition-colors"
+                  >
+                    +91 79043 96868
+                  </a>
+                  <a
+                    href="tel:+919894089557"
+                    className="hover:text-[#FAF8F5] transition-colors"
+                  >
+                    +91 98940 89557
+                  </a>
+                </div>
               </div>
 
               <div className="flex items-center gap-2.5">
@@ -149,7 +162,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8C7D73] gap-4">
-          <p>© 2026 ABC. All Rights Reserved.</p>
+          <p>© 2026 RJ Fabrics. All Rights Reserved.</p>
           <div className="flex items-center gap-4 text-xs font-light">
             <span>Handcrafted in India</span>
             <span aria-hidden="true">·</span>

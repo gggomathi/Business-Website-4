@@ -60,13 +60,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a
               href="#home"
               className="group flex flex-col focus:outline-none"
-              aria-label="ABC Silk Sarees Home"
+              aria-label="RJ Fabrics Pure Silk Sarees Home"
             >
-              <span className="font-display text-3xl sm:text-4xl font-semibold tracking-[0.2em] text-[#242120] group-hover:text-[#8B2635] transition-colors leading-none">
-                ABC
+              <span className="font-display text-2xl sm:text-3xl font-semibold tracking-[0.18em] text-[#242120] group-hover:text-[#8B2635] transition-colors leading-none">
+                RJ FABRICS
               </span>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[#8C7A6B] font-medium mt-1">
-                Pure Silk Sarees
+              <span className="text-[10px] uppercase tracking-[0.3em] text-[#8C7A6B] font-medium mt-1">
+                Pure Silk Sarees · Tiruppur
               </span>
             </a>
           </div>
@@ -124,7 +124,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 )}
               </div>
               <span className="hidden sm:inline text-xs font-semibold uppercase tracking-wider text-[#242120]">
-                Bag
+                Inquiry Bag
               </span>
             </button>
 

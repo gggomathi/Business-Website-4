@@ -23,7 +23,7 @@ export const CollectionsSection: React.FC<CollectionsSectionProps> = ({
   onViewDetails,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState<'featured' | 'price-low' | 'price-high' | 'rating'>('featured');
+  const [sortBy, setSortBy] = useState<'featured' | 'newest' | 'rating'>('featured');
   const [addedNoticeId, setAddedNoticeId] = useState<string | null>(null);
 
   // Filter sarees based on category and search query
@@ -48,8 +48,7 @@ export const CollectionsSection: React.FC<CollectionsSectionProps> = ({
 
   // Sort filtered sarees
   const sortedSarees = [...filteredSarees].sort((a, b) => {
-    if (sortBy === 'price-low') return a.price - b.price;
-    if (sortBy === 'price-high') return b.price - a.price;
+    if (sortBy === 'newest') return (b.isNewArrival ? 1 : 0) - (a.isNewArrival ? 1 : 0);
     if (sortBy === 'rating') return b.rating - a.rating;
     return 0; // featured default
   });
@@ -140,8 +139,7 @@ export const CollectionsSection: React.FC<CollectionsSectionProps> = ({
                 className="py-1.5 px-3 border border-[#E0D5C5] text-xs font-medium text-[#242120] bg-white focus:outline-none focus:border-[#8B2635]"
               >
                 <option value="featured">Featured Curations</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
+                <option value="newest">Newest Arrivals</option>
                 <option value="rating">Highest Rated</option>
               </select>
             </div>
@@ -242,23 +240,23 @@ export const CollectionsSection: React.FC<CollectionsSectionProps> = ({
                       </div>
                     </div>
 
-                    {/* Price and Buttons */}
+                    {/* Inquiry Details and Buttons */}
                     <div className="pt-3 border-t border-[#F0E8DC]">
-                      <div className="flex items-baseline justify-between mb-3">
+                      <div className="flex items-center justify-between mb-3">
                         <div>
-                          <span className="text-xs text-[#A09388] block">Price</span>
-                          <span className="text-lg font-semibold text-[#242120] tabular-nums">
-                            ₹{saree.price.toLocaleString('en-IN')}
+                          <span className="text-[10px] uppercase tracking-wider text-[#8C7A6B] block">
+                            Direct Handloom
+                          </span>
+                          <span className="text-xs font-semibold text-[#8B2635]">
+                            Price on Request
                           </span>
                         </div>
-                        {saree.originalPrice && (
-                          <span className="text-xs text-[#A89C91] line-through tabular-nums">
-                            ₹{saree.originalPrice.toLocaleString('en-IN')}
-                          </span>
-                        )}
+                        <span className="text-[11px] text-[#6B5E55] bg-[#FAF5EE] px-2 py-0.5 border border-[#EADDC9]">
+                          Wholesale & Retail
+                        </span>
                       </div>
 
-                      {/* Primary Buttons: "View Details" & "Add to Cart" */}
+                      {/* Primary Buttons: "View Details" & "Add to Inquiry" */}
                       <div className="grid grid-cols-2 gap-2">
                         <button
                           onClick={() => onViewDetails(saree)}
@@ -283,7 +281,7 @@ export const CollectionsSection: React.FC<CollectionsSectionProps> = ({
                           ) : (
                             <>
                               <ShoppingBag className="w-3.5 h-3.5" />
-                              <span>Add to Cart</span>
+                              <span>Add to Inquiry</span>
                             </>
                           )}
                         </button>

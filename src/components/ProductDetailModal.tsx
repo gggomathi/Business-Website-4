@@ -42,7 +42,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   };
 
   const whatsappInquiryUrl = `https://wa.me/${BUSINESS_INFO.whatsappNumber}?text=${encodeURIComponent(
-    `Hello ABC Silk Sarees, I am inquiring about the ${saree.name} (SKU: ${saree.id}, ₹${saree.price.toLocaleString('en-IN')}). Could you share more details or arrange a video drape call?`
+    `Hello RJ Fabrics, I am inquiring about the ${saree.name} (SKU: ${saree.id}). Could you please share the price quotation, fabric videos, and availability?`
   )}`;
 
   return (
@@ -116,18 +116,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 {saree.tagline}
               </p>
 
-              {/* Price Row */}
-              <div className="mt-4 flex items-baseline gap-3">
-                <span className="text-2xl font-bold text-[#242120] tabular-nums">
-                  ₹{saree.price.toLocaleString('en-IN')}
+              {/* Pricing on Request Row */}
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <span className="text-xl font-bold text-[#8B2635]">
+                  Price on Request
                 </span>
-                {saree.originalPrice && (
-                  <span className="text-sm text-[#A89C91] line-through tabular-nums">
-                    ₹{saree.originalPrice.toLocaleString('en-IN')}
-                  </span>
-                )}
-                <span className="text-xs text-[#1B5E20] font-medium bg-[#E8F5E9] px-2 py-0.5">
-                  Taxes Included · Free Shipping
+                <span className="text-xs text-[#1B5E20] font-medium bg-[#E8F5E9] px-2.5 py-1 border border-[#C8E6C9]">
+                  Wholesale & Retail Orders Welcome
                 </span>
               </div>
 
@@ -246,7 +241,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   ) : (
                     <>
                       <ShoppingBag className="w-4 h-4" />
-                      <span>Add to Bag (₹{(saree.price * quantity).toLocaleString('en-IN')})</span>
+                      <span>Add to Inquiry Bag ({quantity} {quantity === 1 ? 'Piece' : 'Pieces'})</span>
                     </>
                   )}
                 </button>

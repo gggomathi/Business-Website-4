@@ -109,29 +109,24 @@ export const SignatureCollection: React.FC<SignatureCollectionProps> = ({
                     </p>
                   </div>
 
-                  {/* Price & Action Row */}
+                  {/* Inquiry & Action Row */}
                   <div className="pt-2 border-t border-[#F0E8DC] flex items-center justify-between gap-2">
                     <div>
-                      <div className="text-xs text-[#A09388] font-light">Price</div>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-base font-semibold text-[#242120] tabular-nums">
-                          ₹{saree.price.toLocaleString('en-IN')}
-                        </span>
-                        {saree.originalPrice && (
-                          <span className="text-xs text-[#A89C91] line-through tabular-nums">
-                            ₹{saree.originalPrice.toLocaleString('en-IN')}
-                          </span>
-                        )}
-                      </div>
+                      <span className="text-[10px] uppercase tracking-wider text-[#8C7A6B] block">
+                        Direct Handloom
+                      </span>
+                      <span className="text-xs font-semibold text-[#8B2635]">
+                        Price on Request
+                      </span>
                     </div>
 
                     <button
                       onClick={() => onAddToCart(saree)}
                       className="p-2 sm:px-3 sm:py-2 bg-[#8B2635] text-white hover:bg-[#721F2B] text-xs font-medium uppercase tracking-wider flex items-center gap-1.5 transition-colors focus:outline-none focus:ring-1 focus:ring-[#8B2635]"
-                      aria-label={`Add ${saree.name} to cart`}
+                      aria-label={`Add ${saree.name} to inquiry`}
                     >
                       <ShoppingBag className="w-3.5 h-3.5" />
-                      <span className="hidden sm:inline">Add to Cart</span>
+                      <span className="hidden sm:inline">Add to Inquiry</span>
                     </button>
                   </div>
                 </div>

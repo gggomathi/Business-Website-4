@@ -24,7 +24,7 @@ export default function App() {
   // Cart state stored in localStorage for persistence across reloads
   const [cart, setCart] = useState<CartItem[]>(() => {
     try {
-      const saved = localStorage.getItem('abc_cart');
+      const saved = localStorage.getItem('rj_inquiry_cart');
       return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
@@ -34,7 +34,7 @@ export default function App() {
   // Wishlist state stored in localStorage
   const [wishlist, setWishlist] = useState<string[]>(() => {
     try {
-      const saved = localStorage.getItem('abc_wishlist');
+      const saved = localStorage.getItem('rj_wishlist');
       return saved ? JSON.parse(saved) : ['saree-kanchi-crimson-01'];
     } catch {
       return ['saree-kanchi-crimson-01'];
@@ -47,7 +47,7 @@ export default function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('abc_cart', JSON.stringify(cart));
+      localStorage.setItem('rj_inquiry_cart', JSON.stringify(cart));
     } catch (e) {
       console.error(e);
     }
@@ -55,7 +55,7 @@ export default function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('abc_wishlist', JSON.stringify(wishlist));
+      localStorage.setItem('rj_wishlist', JSON.stringify(wishlist));
     } catch (e) {
       console.error(e);
     }
@@ -80,7 +80,7 @@ export default function App() {
       }
       return [...prev, { saree, quantity }];
     });
-    showToast(`Added "${saree.name}" to your Shopping Bag`);
+    showToast(`Added "${saree.name}" to your Inquiry Bag`);
   };
 
   const handleUpdateCartQuantity = (sareeId: string, quantity: number) => {
@@ -93,7 +93,7 @@ export default function App() {
 
   const handleRemoveFromCart = (sareeId: string) => {
     setCart((prev) => prev.filter((item) => item.saree.id !== sareeId));
-    showToast('Removed item from Shopping Bag');
+    showToast('Removed item from Inquiry Bag');
   };
 
   const handleClearCart = () => {

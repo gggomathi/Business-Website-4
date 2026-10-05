@@ -106,7 +106,7 @@ export const Hero: React.FC<HeroProps> = ({ onShopSarees, onExploreCollection })
               <div className="relative overflow-hidden bg-[#F2ECE1] aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] shadow-md border border-[#E8DFD3]">
                 <img
                   src={heroImg}
-                  alt="Elegant model draped in authentic crimson and gold Kanchipuram pure silk saree by ABC"
+                  alt="Elegant model draped in authentic crimson and gold Kanchipuram pure silk saree by RJ Fabrics"
                   className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700 ease-out"
                   referrerPolicy="no-referrer"
                   loading="eager"
@@ -131,12 +131,12 @@ export const Hero: React.FC<HeroProps> = ({ onShopSarees, onExploreCollection })
 
               {/* Verified artisan tag */}
               <div className="absolute -bottom-5 -left-3 sm:-left-6 bg-white/95 backdrop-blur-sm border border-[#E2D5C3] p-3 sm:p-4 shadow-sm flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#FAF5EB] border border-[#C5A059] flex items-center justify-center text-[#8B2635] font-display font-semibold text-sm">
-                  ABC
+                <div className="w-8 h-8 rounded-full bg-[#FAF5EB] border border-[#C5A059] flex items-center justify-center text-[#8B2635] font-display font-semibold text-xs text-center">
+                  RJ
                 </div>
                 <div>
-                  <div className="text-xs font-semibold text-[#242120]">Hand-Woven in Kanchipuram</div>
-                  <div className="text-[10px] text-[#7A6E65]">Over 240 Loom Hours Dedicated</div>
+                  <div className="text-xs font-semibold text-[#242120]">RJ Fabrics · Tamil Nadu Handlooms</div>
+                  <div className="text-[10px] text-[#7A6E65]">Authentic Master Weavers · Pure Silk Mark</div>
                 </div>
               </div>
 

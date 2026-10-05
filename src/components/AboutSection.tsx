@@ -61,10 +61,10 @@ export const AboutSection: React.FC = () => {
 
             <div className="space-y-4 text-sm sm:text-base text-[#5A514B] font-light leading-relaxed">
               <p>
-                At <strong>ABC</strong>, our mission is born out of deep reverence for Indian handloom artistry. We believe a silk saree is never simply an attire—it is an heirloom of memory, sacred blessing, and cultural celebration passed down with pride across mothers, daughters, and generations.
+                At <strong>RJ Fabrics</strong>, our mission is born out of deep reverence for Indian handloom artistry. Based in Madathukulam, Tiruppur District, Tamil Nadu, we believe a silk saree is never simply an attire—it is an heirloom of memory, sacred blessing, and cultural celebration passed down with pride across generations.
               </p>
               <p>
-                We are dedicated to bringing authentic, elegant, and exceptional-grade silk sarees directly to our patrons while upholding the timeless dignity of master handloom artisans. By eliminating intermediaries, every ABC drape honors traditional handloom pit-loom techniques, pure silver zari electroplated in 24k gold, and certified Mulberry silk fibers.
+                We are dedicated to bringing authentic, elegant, and exceptional-grade silk sarees directly to our patrons and boutique partners while upholding the timeless dignity of master handloom artisans. By connecting directly with weaving clusters, every RJ Fabrics drape honors traditional handloom techniques, tested pure zari, and certified Mulberry silk fibers.
               </p>
             </div>
 

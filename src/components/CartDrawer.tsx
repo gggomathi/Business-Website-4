@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CartItem } from '../types';
-import { X, Trash2, ArrowRight, ShieldCheck, CheckCircle2, Truck } from 'lucide-react';
+import { X, Trash2, ArrowRight, ShieldCheck, CheckCircle2, MessageSquare, Send } from 'lucide-react';
 import { BUSINESS_INFO } from '../data/sarees';
 
 interface CartDrawerProps {
@@ -25,27 +25,25 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     name: '',
     phone: '',
     email: '',
-    address: '',
     city: '',
-    pincode: '',
-    paymentMethod: 'cod', // Cash on Delivery / UPI
+    inquiryType: 'Retail / Bridal', // Retail or Wholesale
+    notes: '',
   });
-  const [orderNumber, setOrderNumber] = useState('');
+  const [inquiryReference, setInquiryReference] = useState('');
 
   if (!isOpen) return null;
 
-  const subtotal = items.reduce((sum, item) => sum + item.saree.price * item.quantity, 0);
-  const totalItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPiecesCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
-  const handleStartCheckout = () => {
+  const handleStartInquiry = () => {
     setCheckoutStep('checkout');
   };
 
-  const handlePlaceOrder = (e: React.FormEvent) => {
+  const handlePlaceInquiry = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!customerDetails.name || !customerDetails.phone || !customerDetails.address) return;
-    const generatedOrderNum = `ABC-${Math.floor(100000 + Math.random() * 900000)}`;
-    setOrderNumber(generatedOrderNum);
+    if (!customerDetails.name || !customerDetails.phone) return;
+    const generatedRef = `RJ-INQ-${Math.floor(100000 + Math.random() * 900000)}`;
+    setInquiryReference(generatedRef);
     setCheckoutStep('success');
   };
 
@@ -56,6 +54,15 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     }
     onClose();
   };
+
+  // Pre-filled WhatsApp message for all items in the inquiry bag
+  const itemsText = items
+    .map((item, idx) => `${idx + 1}. ${item.saree.name} (${item.quantity} ${item.quantity === 1 ? 'pc' : 'pcs'})`)
+    .join('%0A');
+
+  const whatsappInquiryUrl = `https://wa.me/${BUSINESS_INFO.whatsappNumber}?text=${encodeURIComponent(
+    `Hello RJ Fabrics! I would like to receive the pricing and details for the following sarees in my inquiry bag:%0A%0A`
+  )}${itemsText}`;
 
   return (
     <div
@@ -71,19 +78,19 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           <div className="flex items-center gap-2">
             <span className="font-display text-xl font-semibold text-[#242120]">
               {checkoutStep === 'cart'
-                ? 'Your Shopping Bag'
+                ? 'Your Saree Inquiry Bag'
                 : checkoutStep === 'checkout'
-                ? 'Ceremonial Delivery Checkout'
-                : 'Order Confirmed'}
+                ? 'Request Price Quotation'
+                : 'Inquiry Submitted'}
             </span>
             {checkoutStep === 'cart' && (
-              <span className="text-xs text-[#8C7A6B]">({totalItemsCount} items)</span>
+              <span className="text-xs text-[#8C7A6B]">({totalPiecesCount} {totalPiecesCount === 1 ? 'item' : 'items'})</span>
             )}
           </div>
           <button
             onClick={handleCloseAndReset}
             className="p-1.5 text-[#6B5E55] hover:text-[#242120] transition-colors"
-            aria-label="Close Shopping Bag"
+            aria-label="Close Inquiry Bag"
           >
             <X className="w-5 h-5" />
           </button>
@@ -97,32 +104,32 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               {items.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center py-16 space-y-4">
                   <div className="w-16 h-16 rounded-full bg-[#FAF5EE] border border-[#E0D5C5] flex items-center justify-center text-[#8B2635] font-display text-2xl font-bold">
-                    ABC
+                    RJ
                   </div>
                   <div>
                     <h3 className="font-display text-xl font-semibold text-[#242120]">
-                      Your Bag is Empty
+                      Your Inquiry Bag is Empty
                     </h3>
                     <p className="text-xs text-[#7A6E65] mt-1 max-w-xs font-light">
-                      Explore our handloom silk collections to find the perfect heirloom drape.
+                      Explore our handloom silk collections and add sarees to request official quotations and fabric videos.
                     </p>
                   </div>
                   <button
                     onClick={onClose}
                     className="mt-2 px-6 py-2.5 bg-[#8B2635] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#721F2B] transition-colors"
                   >
-                    Explore Sarees
+                    Browse Collections
                   </button>
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {/* Free shipping banner */}
+                  {/* Silk mark note */}
                   <div className="bg-[#FAF5EE] border border-[#EADDC9] p-3 text-xs flex items-center gap-2 text-[#4A4543]">
-                    <Truck className="w-4 h-4 text-[#8B2635] shrink-0" />
-                    <span>Complimentary insured shipping applied to your order!</span>
+                    <ShieldCheck className="w-4 h-4 text-[#8B2635] shrink-0" />
+                    <span>Direct Handloom Pricing · Wholesale & Retail Enquiries</span>
                   </div>
 
-                  {/* Items List */}
+                  {/* Items List without prices */}
                   <div className="divide-y divide-[#F0E8DC]">
                     {items.map((item) => (
                       <div key={item.saree.id} className="py-4 flex gap-4 items-center">
@@ -142,8 +149,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           <p className="text-[11px] text-[#8C7A6B] truncate">
                             {item.saree.color} · 100% Pure Silk
                           </p>
-                          <div className="mt-1 text-xs font-semibold text-[#242120] tabular-nums">
-                            ₹{item.saree.price.toLocaleString('en-IN')}
+                          <div className="mt-1 text-xs font-semibold text-[#8B2635]">
+                            Price on Request
                           </div>
 
                           {/* Stepper & Delete */}
@@ -182,23 +189,34 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       </div>
                     ))}
                   </div>
+
+                  {/* Direct WhatsApp instant quote option */}
+                  <a
+                    href={whatsappInquiryUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-4 bg-[#1B5E20] hover:bg-[#144718] text-white text-xs font-medium uppercase tracking-wider flex items-center justify-center gap-2 transition-colors"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    <span>Inquire this List on WhatsApp</span>
+                  </a>
                 </div>
               )}
             </>
           )}
 
           {checkoutStep === 'checkout' && (
-            <form id="checkout-form" onSubmit={handlePlaceOrder} className="space-y-4 text-xs">
-              <div className="bg-[#FAF5EE] p-3 border border-[#E0D5C5] flex items-center justify-between">
-                <span>Order Total:</span>
-                <strong className="text-sm text-[#242120] tabular-nums">
-                  ₹{subtotal.toLocaleString('en-IN')}
-                </strong>
+            <form id="inquiry-form" onSubmit={handlePlaceInquiry} className="space-y-4 text-xs">
+              <div className="bg-[#FAF5EE] p-3 border border-[#E0D5C5]">
+                <div className="text-[11px] text-[#8C7A6B]">Inquiry Summary</div>
+                <div className="text-sm font-semibold text-[#242120]">
+                  {totalPiecesCount} Handloom Saree {totalPiecesCount === 1 ? 'Design' : 'Designs'} Selected
+                </div>
               </div>
 
               <div>
                 <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#4A4543] mb-1">
-                  Recipient Name *
+                  Full Name *
                 </label>
                 <input
                   type="text"
@@ -222,23 +240,22 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     onChange={(e) =>
                       setCustomerDetails({ ...customerDetails, phone: e.target.value })
                     }
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 79043 96868"
                     className="w-full px-3 py-2 border border-[#D9CEBE] text-xs focus:outline-none focus:border-[#8B2635]"
                   />
                 </div>
 
                 <div>
                   <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#4A4543] mb-1">
-                    PIN Code *
+                    City / Town
                   </label>
                   <input
                     type="text"
-                    required
-                    value={customerDetails.pincode}
+                    value={customerDetails.city}
                     onChange={(e) =>
-                      setCustomerDetails({ ...customerDetails, pincode: e.target.value })
+                      setCustomerDetails({ ...customerDetails, city: e.target.value })
                     }
-                    placeholder="e.g. 600001"
+                    placeholder="e.g. Tiruppur / Chennai"
                     className="w-full px-3 py-2 border border-[#D9CEBE] text-xs focus:outline-none focus:border-[#8B2635]"
                   />
                 </div>
@@ -246,62 +263,35 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
               <div>
                 <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#4A4543] mb-1">
-                  Delivery Address *
+                  Inquiry Purpose
                 </label>
-                <textarea
-                  required
-                  rows={2}
-                  value={customerDetails.address}
+                <select
+                  value={customerDetails.inquiryType}
                   onChange={(e) =>
-                    setCustomerDetails({ ...customerDetails, address: e.target.value })
+                    setCustomerDetails({ ...customerDetails, inquiryType: e.target.value })
                   }
-                  placeholder="Door No, Street Name, Landmark, City"
-                  className="w-full px-3 py-2 border border-[#D9CEBE] text-xs focus:outline-none focus:border-[#8B2635]"
-                />
+                  className="w-full px-3 py-2 border border-[#D9CEBE] text-xs focus:outline-none focus:border-[#8B2635] bg-white"
+                >
+                  <option value="Retail / Bridal">Retail / Bridal Occasion</option>
+                  <option value="Wholesale / Boutique Reseller">Wholesale / Boutique Reseller</option>
+                  <option value="Bulk Wedding Order">Bulk Wedding Order</option>
+                  <option value="Export / International">Export / International Inquiry</option>
+                </select>
               </div>
 
-              {/* Payment Option */}
               <div>
-                <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#4A4543] mb-1.5">
-                  Select Payment Option
+                <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#4A4543] mb-1">
+                  Notes or Customization Requests
                 </label>
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 p-2.5 border border-[#D9CEBE] cursor-pointer hover:bg-[#FAF8F5]">
-                    <input
-                      type="radio"
-                      name="payment"
-                      checked={customerDetails.paymentMethod === 'cod'}
-                      onChange={() =>
-                        setCustomerDetails({ ...customerDetails, paymentMethod: 'cod' })
-                      }
-                      className="text-[#8B2635]"
-                    />
-                    <div>
-                      <span className="font-semibold text-[#242120] block">Cash on Delivery (COD)</span>
-                      <span className="text-[10px] text-[#7A6E65]">
-                        Inspect your pure silk upon delivery, then pay.
-                      </span>
-                    </div>
-                  </label>
-
-                  <label className="flex items-center gap-2 p-2.5 border border-[#D9CEBE] cursor-pointer hover:bg-[#FAF8F5]">
-                    <input
-                      type="radio"
-                      name="payment"
-                      checked={customerDetails.paymentMethod === 'online'}
-                      onChange={() =>
-                        setCustomerDetails({ ...customerDetails, paymentMethod: 'online' })
-                      }
-                      className="text-[#8B2635]"
-                    />
-                    <div>
-                      <span className="font-semibold text-[#242120] block">UPI / Net Banking / Card</span>
-                      <span className="text-[10px] text-[#7A6E65]">
-                        Instant secure online payment with Silk Mark guarantee.
-                      </span>
-                    </div>
-                  </label>
-                </div>
+                <textarea
+                  rows={2}
+                  value={customerDetails.notes}
+                  onChange={(e) =>
+                    setCustomerDetails({ ...customerDetails, notes: e.target.value })
+                  }
+                  placeholder="Need video consultation, specific color shades, delivery timeline..."
+                  className="w-full px-3 py-2 border border-[#D9CEBE] text-xs focus:outline-none focus:border-[#8B2635]"
+                />
               </div>
             </form>
           )}
@@ -313,30 +303,30 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               </div>
               <div>
                 <h3 className="font-display text-2xl font-semibold text-[#242120]">
-                  Congratulations on Your Heirloom!
+                  Inquiry Received with Pleasure
                 </h3>
                 <p className="text-xs text-[#8C7A6B] mt-1 font-mono">
-                  Order Reference: {orderNumber}
+                  Reference: {inquiryReference}
                 </p>
               </div>
 
               <div className="bg-[#FAF5EE] border border-[#E0D5C5] p-4 text-left space-y-2 text-xs text-[#4A4543]">
-                <div><strong>Recipient:</strong> {customerDetails.name}</div>
+                <div><strong>Patron:</strong> {customerDetails.name}</div>
                 <div><strong>Phone:</strong> {customerDetails.phone}</div>
-                <div><strong>Address:</strong> {customerDetails.address}, {customerDetails.pincode}</div>
-                <div><strong>Payment:</strong> {customerDetails.paymentMethod === 'cod' ? 'Cash on Delivery' : 'Online Verified'}</div>
-                <div><strong>Total Amount:</strong> ₹{subtotal.toLocaleString('en-IN')}</div>
+                <div><strong>Inquiry Type:</strong> {customerDetails.inquiryType}</div>
+                <div><strong>Total Sarees:</strong> {totalPiecesCount} Pieces</div>
+                <div><strong>Company:</strong> RJ Fabrics (GSTIN: {BUSINESS_INFO.gstin})</div>
               </div>
 
               <p className="text-xs text-[#6B5E55] font-light leading-relaxed">
-                Your saree is being carefully pressed and wrapped in pure cotton muslin cloth. Our concierge will send tracking updates via WhatsApp to {customerDetails.phone}.
+                Thank you! Our concierge team from RJ Fabrics will connect with you via WhatsApp or call ({BUSINESS_INFO.phonePrimary}) with comprehensive quotations and daylight weave videos.
               </p>
 
               <button
                 onClick={handleCloseAndReset}
                 className="w-full py-3 bg-[#8B2635] text-white text-xs font-semibold uppercase tracking-wider hover:bg-[#721F2B] transition-colors"
               >
-                Continue Browsing ABC Sarees
+                Continue Browsing RJ Fabrics
               </button>
             </div>
           )}
@@ -346,22 +336,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         {/* Drawer Footer */}
         {checkoutStep === 'cart' && items.length > 0 && (
           <div className="p-4 sm:p-5 border-t border-[#E8DFD3] bg-[#FAF8F5] space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-[#6B5E55]">Subtotal</span>
-              <span className="text-lg font-bold text-[#242120] tabular-nums">
-                ₹{subtotal.toLocaleString('en-IN')}
-              </span>
-            </div>
             <div className="flex items-center justify-between text-xs text-[#8C7A6B]">
-              <span>Shipping & Insurance</span>
-              <span className="text-[#1B5E20] font-semibold">FREE</span>
+              <span>Direct Weaver Contact</span>
+              <span className="text-[#8B2635] font-semibold">{BUSINESS_INFO.phonePrimary}</span>
             </div>
 
             <button
-              onClick={handleStartCheckout}
+              onClick={handleStartInquiry}
               className="w-full py-3.5 bg-[#8B2635] hover:bg-[#721F2B] text-white text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
-              <span>Proceed to Checkout</span>
+              <span>Request Price Quotation</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -377,12 +361,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               Back
             </button>
             <button
-              form="checkout-form"
+              form="inquiry-form"
               type="submit"
               className="flex-1 py-3 bg-[#8B2635] hover:bg-[#721F2B] text-white text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center gap-2"
             >
-              <ShieldCheck className="w-4 h-4" />
-              <span>Confirm & Place Order</span>
+              <Send className="w-4 h-4" />
+              <span>Submit Inquiry</span>
             </button>
           </div>
         )}
