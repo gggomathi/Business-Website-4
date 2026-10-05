@@ -1,0 +1,6 @@
+{
+  "name": "ABC Silk Sarees",
+  "description": "Discover timeless, authentic silk sarees crafted for weddings, festivals, and special occasions by ABC.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
